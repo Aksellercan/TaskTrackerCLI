@@ -8,7 +8,7 @@ typedef struct {
     char status[15];
     char createdAt[30];
     char updatedAt[30];
-} Task; // 2 more: createdAt: The date and time when the task was created, updatedAt: The date and time when the task was last updated
+} Task;
 
 void add_task(const Task *task, bool saveToFile);
 void remove_task(int task_id);
