@@ -1,6 +1,15 @@
 
 Sample solution for the [task-tracker](https://roadmap.sh/projects/task-tracker) challenge from roadmap.sh.
 
+## Setup
+```bash
+    git clone https://github.com/Aksellercan/TaskTrackerCLI.git
+    cd TaskTrackerCLI
+    gcc main.c String/String.c cJSON/cJSON.c FileUtility.c Tasks.c -o ./TaskTrackerCLI.exe
+```
+
+
+## Usage
 ```bash
     ./TaskTrackerCLI add "task description"
     ./TaskTrackerCLI update 1 "new task description"
