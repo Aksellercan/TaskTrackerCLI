@@ -15,7 +15,7 @@ void allocate_memory() {
     if (taskList != NULL) {
         Task *ptr = realloc(taskList, sizeof(Task) * (arrayLength + 1));
         if (ptr == NULL) {
-            printf("Memory allocation failed\n");
+            printf("Memory reallocation failed\n");
             exit(3);
         }
         taskList = ptr;
