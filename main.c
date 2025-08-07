@@ -78,6 +78,14 @@ int main(int argc, char *argv[]) {
                 list_tasks();
             }
 
+            if (compareStrings(argv[1], "sort-completed")) {
+                sort_task_by_completed();
+            }
+
+            if (compareStrings(argv[1], "sort-incomplete")) {
+                sort_task_by_in_progress();
+            }
+
             if (compareStrings(argv[1], "help")) {
                 help();
             }

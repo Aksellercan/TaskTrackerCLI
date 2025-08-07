@@ -1,8 +1,6 @@
 #include "Tasks.h"
 #include "String/String.h"
 #include "FileUtility.h"
-
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -10,6 +8,14 @@
 Task *taskList;
 int arrayLength;
 int reallocateCounter;
+
+void print_tasks(Task* task) {
+    if (isNullOrWhiteSpace(task->updatedAt)) {
+        printf("\n%d: %s\nStatus: %s, Created At: %s\n", task->id, task->description,task->status ,task->createdAt);
+    } else {
+        printf("\n%d: %s\nStatus: %s, Updated At: %s\n", task->id, task->description,task->status, task->updatedAt);
+    }
+}
 
 void allocate_memory() {
     if (taskList != NULL) {
@@ -40,7 +46,7 @@ void add_task(const Task *task, const bool saveToFile) {
 }
 
 void remove_task(const int task_id) {
-    bool success = false;
+    _Bool success = false;
     for (int i = 0; i < arrayLength; i++) {
         const Task *task = &taskList[i];
         if (task->id == task_id) {
@@ -82,7 +88,7 @@ void mark_task_status(const int taskid, const char *status) {
 void update_task(const int taskid, const char *description) {
     bool success = false;
     for (int i = 0; i < arrayLength; i++) {
-        const Task *taskFound = &taskList[i];
+        Task *taskFound = &taskList[i];
         if (taskFound->id == taskid) {
             time_t currentTime;
             time(&currentTime);
@@ -103,35 +109,21 @@ void update_task(const int taskid, const char *description) {
 
 void list_tasks() {
     if (taskList == NULL) return;
-    printf(">=====| LIST |=====<\n");
-    printf("\n");
+    printf("Task List:\n");
     for (int i = 0; i < arrayLength; i++) {
-        const Task *task = &taskList[i];
-        printf("   \tTask description: %s\n", task->description);
-        printf("%d:", i + 1);
-        printf("\tTask status: %s\n", task->status);
-        printf("\tTask id: %d\n", task->id);
-        printf("\tTask Created at %s\n", task->createdAt);
-        printf("\tTask Updated at %s\n", task->updatedAt);
-        printf("\n");
+        Task *task = &taskList[i];
+        print_tasks(task);
     }
 }
 
 void sort_task_by_completed() {
     if (taskList == NULL) return;
-    printf(">=====| COMPLETED LIST |=====<\n");
-    printf("\n");
+    printf("Completed Tasks:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
         if (compareStrings(task->status, "done")) {
-            printf("   \tTask description: %s\n", task->description);
-            printf("%d:", listLength + 1);
-            printf("\tTask status: %s\n", task->status);
-            printf("\tTask id: %d\n", task->id);
-            printf("\tTask Created at %s\n", task->createdAt);
-            printf("\tTask Updated at %s\n", task->updatedAt);
-            printf("\n");
+            print_tasks(task);
             listLength++;
         }
     }
@@ -148,13 +140,7 @@ void sort_task_by_in_progress() {
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
         if (compareStrings(task->status, "in-progress")) {
-            printf("   \tTask description: %s\n", task->description);
-            printf("%d:", listLength + 1);
-            printf("\tTask status: %s\n", task->status);
-            printf("\tTask id: %d\n", task->id);
-            printf("\tTask Created at %s\n", task->createdAt);
-            printf("\tTask Updated at %s\n", task->updatedAt);
-            printf("\n");
+            print_tasks(task);
             listLength++;
         }
     }
@@ -165,19 +151,12 @@ void sort_task_by_in_progress() {
 
 void sort_task_by_todo() {
     if (taskList == NULL) return;
-    printf(">=====| TODO LIST |=====<\n");
-    printf("\n");
+    printf("To Do List:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
         if (compareStrings(task->status, "todo")) {
-            printf("   \tTask description: %s\n", task->description);
-            printf("%d:", listLength + 1);
-            printf("\tTask status: %s\n", task->status);
-            printf("\tTask id: %d\n", task->id);
-            printf("\tTask Created at %s\n", task->createdAt);
-            printf("\tTask Updated at %s\n", task->updatedAt);
-            printf("\n");
+            print_tasks(task);
             listLength++;
         }
     }

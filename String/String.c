@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "String.h"
-#include <stdbool.h>
-
 
 int counter(const char *str, int count) {
     if (str == NULL) return 0;
@@ -17,31 +15,31 @@ int stringLength(const char *str) {
     return counter(str, 0);
 }
 
-bool compareStrings(const char *str1, const char *str2) {
+_Bool compareStrings(const char *str1, const char *str2) {
     const int len1 = stringLength(str1);
     if (len1 != stringLength(str2)) {
-        return false;
+        return 0;
     }
     for (int i = 0; i < len1; i++) {
         if (str1[i] != str2[i]) {
-            return false;
+            return 0;
         }
     }
-    return true;
+    return 1;
 }
 
-bool includesSpace(const char *str) {
+_Bool includesSpace(const char *str) {
     const int strLen = stringLength(str);
     if (str[0] == ' ' || str[strLen - 1] == ' ') {
-        return true;
+        return 1;
     }
 
     for (int i = 0; i < strLen; i++) {
         if (str[i] == ' ') {
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
 }
 
 char* trim(const char *str) {
@@ -49,14 +47,14 @@ char* trim(const char *str) {
     char *newString = malloc(strLen + 1); //print (+1) for null terminator '\0'
     if (strLen == 0) { return NULL; }
     int count = 0;
-    bool trimmed = false;
+    _Bool trimmed = 0;
     while (!trimmed) {
         if (str[count] != ' ') {
             if (newString != NULL) {
                 for (int i = 0; i < strLen; i++) {
                     newString[i] = str[count+i];
                 }
-                trimmed = true;
+                trimmed = 1;
             } else {
                 printf("Memory Allocation Failed!\n");
                 exit(3);
@@ -78,35 +76,35 @@ char* trim(const char *str) {
     return newString;
 }
 
-bool isNullOrWhiteSpace(const char *str) {
-    if (str == NULL) { return true; }
+_Bool isNullOrWhiteSpace(const char *str) {
+    if (str == NULL) { return 1; }
     const int strLen = stringLength(str);
     if (strLen == 0) {
-        return true;
+        return 1;
     }
     if (strLen == 1) {
         if (str[0] == ' ') {
-            return true;
+            return 1;
         }
     }
-    bool isSpace = true;
+    _Bool isSpace = 1;
     for (int i = 0; i < strLen; i++) {
         if (str[i] != ' ') {
-            isSpace = false;
+            isSpace = 0;
         }
     }
     return isSpace;
 }
 
-bool ContainsChar(const char* str, const char* containsChar) {
+_Bool ContainsChar(const char* str, const char* containsChar) {
     const int strLen = stringLength(str);
-    if (strLen == 0) { return false; }
+    if (strLen == 0) { return 0; }
     for (int i = 0; i < strLen; i++) {
         if (str[i] == *containsChar) {
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
 }
 
 int CountCharinString(const char *str, const char *containsChar) {
