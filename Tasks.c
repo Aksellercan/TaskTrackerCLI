@@ -108,7 +108,10 @@ void update_task(const int taskid, const char *description) {
 }
 
 void list_tasks() {
-    if (taskList == NULL) return;
+    if (taskList == NULL) {
+        printf("No tasks found\n");
+        return;
+    }
     printf("Task List:\n");
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
@@ -133,9 +136,11 @@ void sort_task_by_completed() {
 }
 
 void sort_task_by_in_progress() {
-    if (taskList == NULL) return;
-    printf(">=====| IN PROGRESS LIST |=====<\n");
-    printf("\n");
+    if (taskList == NULL) {
+        printf("No tasks found\n");
+        return;
+    }
+    printf("In Progress:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
@@ -150,7 +155,10 @@ void sort_task_by_in_progress() {
 }
 
 void sort_task_by_todo() {
-    if (taskList == NULL) return;
+    if (taskList == NULL) {
+        printf("No tasks found\n");
+        return;
+    }
     printf("To Do List:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {

@@ -4,8 +4,8 @@
 
 typedef struct {
     int id;
-    char description[30];
-    char status[15];
+    char description[61]; //+1 for the \0
+    char status[12];
     char createdAt[30];
     char updatedAt[30];
 } Task;

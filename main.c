@@ -11,8 +11,13 @@ void addOption(const char *description) {
     time_t currentTime;
     time(&currentTime);
     StringCopy(RemoveTrailingNewLine(ctime(&currentTime)), task.createdAt);
+    const int descLength = stringLength(description);
+    if (descLength > 60) {
+        printf("Description is too long! Counted %d chars, should be less than 60 characters.\n", descLength);
+        return;
+    }
     StringCopy(description, task.description);
-    char *status = "todo";
+    const char *status = "todo";
     StringCopy(status, task.status);
     add_task(&task,true);
     printf("Task added successfully (ID %d)",task.id);
@@ -42,7 +47,7 @@ int main(int argc, char *argv[]) {
                 addOption(argv[2]);
             }
             if (compareStrings(argv[1], "delete")) {
-                int intValue =atoi(argv[2]);
+                const int intValue =atoi(argv[2]);
                 remove_task(intValue);
             }
             if (compareStrings(argv[1], "list")) {
@@ -57,11 +62,11 @@ int main(int argc, char *argv[]) {
                 }
             }
             if (compareStrings(argv[1], "mark-in-progress")) {
-                int intValue =atoi(argv[2]);
+                const int intValue =atoi(argv[2]);
                 mark_task_status(intValue, "in-progress");
             }
             if (compareStrings(argv[1], "mark-done")) {
-                int intValue =atoi(argv[2]);
+                const int intValue =atoi(argv[2]);
                 mark_task_status(intValue, "done");
             }
         }
