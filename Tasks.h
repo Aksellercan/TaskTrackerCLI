@@ -5,7 +5,7 @@
 typedef struct {
     int id;
     char description[61]; //+1 for the \0
-    char status[12];
+    char status[13];
     char createdAt[30];
     char updatedAt[30];
 } Task;

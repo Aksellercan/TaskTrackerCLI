@@ -120,7 +120,10 @@ void list_tasks() {
 }
 
 void sort_task_by_completed() {
-    if (taskList == NULL) return;
+    if (taskList == NULL) {
+        printf("No tasks found\n");
+        return;
+    }
     printf("Completed Tasks:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
