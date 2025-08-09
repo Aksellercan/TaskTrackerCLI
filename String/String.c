@@ -140,3 +140,53 @@ char* RemoveTrailingNewLine(char *stringToRemove) {
     }
     return stringToRemove;
 }
+
+_Bool Contains(const char *pattern, const char *stringToFind) {
+    const int patternLen = stringLength(pattern);
+    int correctLetterCount = 0;
+    int jIndex = 0;
+    int stringToFindLen = stringLength(stringToFind);
+    for (int i = 0; i < stringToFindLen; i++) {
+        if (jIndex == patternLen-1) {
+            jIndex = 0;
+        }
+        if (pattern[jIndex] == stringToFind[i] && pattern[jIndex+1] == stringToFind[i+1]) {
+            correctLetterCount++;
+            jIndex++;
+        }
+        if (correctLetterCount == patternLen-1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+char* ToLowerCase(const char * str) {
+    const int strLen = stringLength(str);
+    char returnString[strLen];
+    if (strLen == 0) { return NULL; }
+    for (int i = 0; i < strLen; i++) {
+        char c = str[i];
+        if (c > 96) {
+            returnString[i] = c;
+            continue;
+        }
+        if (c < 58 && c > 47) {
+            returnString[i] = c;
+            continue;
+        }
+        if (c == ' ') {
+            returnString[i] = ' ';
+            continue;
+        }
+        if (c == '\0') {
+            break;
+        }
+        c = c+32;
+        returnString[i] = c;
+    }
+    returnString[strLen] = '\0';
+    char* newString = malloc(strLen+1);
+    StringCopy(returnString, newString);
+    return newString;
+}

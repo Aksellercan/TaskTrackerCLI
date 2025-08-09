@@ -10,5 +10,7 @@ _Bool ContainsChar(const char *str, const char *containsChar);
 int CountCharinString(const char *str, const char *containsChar);
 void StringCopy(const char *stringToCopy, char *destination);
 char* RemoveTrailingNewLine(char *stringToRemove);
+_Bool Contains(const char *str, const char *stringToFind);
+char* ToLowerCase(const char *str);
 
 #endif //STRING_H
