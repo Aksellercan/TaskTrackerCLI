@@ -167,22 +167,36 @@ char* ToLowerCase(const char * str) {
     if (strLen == 0) { return NULL; }
     for (int i = 0; i < strLen; i++) {
         char c = str[i];
-        if (c > 96) {
-            returnString[i] = c;
-            continue;
-        }
-        if (c < 58 && c > 47) {
-            returnString[i] = c;
-            continue;
-        }
-        if (c == ' ') {
-            returnString[i] = ' ';
-            continue;
-        }
         if (c == '\0') {
             break;
         }
-        c = c+32;
+        //Uppercase letters in ASCII Table
+        if (c > 64 && c < 91) {
+            c = c+32;
+            returnString[i] = c;
+        }
+        returnString[i] = c;
+    }
+    returnString[strLen] = '\0';
+    char* newString = malloc(strLen+1);
+    StringCopy(returnString, newString);
+    return newString;
+}
+
+char* ToUpperCase(const char * str) {
+    const int strLen = stringLength(str);
+    char returnString[strLen];
+    if (strLen == 0) { return NULL; }
+    for (int i = 0; i < strLen; i++) {
+        char c = str[i];
+        if (c == '\0') {
+            break;
+        }
+        //Lowercase letters in ASCII Table
+        if (c > 96 && c < 123) {
+            c = c-32;
+            returnString[i] = c;
+        }
         returnString[i] = c;
     }
     returnString[strLen] = '\0';

@@ -12,5 +12,6 @@ void StringCopy(const char *stringToCopy, char *destination);
 char* RemoveTrailingNewLine(char *stringToRemove);
 _Bool Contains(const char *str, const char *stringToFind);
 char* ToLowerCase(const char *str);
+char* ToUpperCase(const char *str);
 
 #endif //STRING_H
