@@ -86,6 +86,11 @@ void mark_task_status(const int taskid, const char *status) {
 }
 
 void update_task(const int taskid, const char *description) {
+    const int descLength = stringLength(description);
+    if (descLength > 60) {
+        printf("Description is too long! Counted %d chars, should be less than 60 characters.\n", descLength);
+        return;
+    }
     bool success = false;
     for (int i = 0; i < arrayLength; i++) {
         Task *taskFound = &taskList[i];
@@ -94,7 +99,7 @@ void update_task(const int taskid, const char *description) {
             time(&currentTime);
             StringCopy(RemoveTrailingNewLine(ctime(&currentTime)), taskFound->updatedAt);
             StringCopy(description, taskFound->description);
-            char *status = "todo";
+            const char *status = "todo";
             StringCopy(status, taskFound->status);
             success = true;
         }
