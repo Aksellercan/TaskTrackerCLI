@@ -5,7 +5,8 @@ Sample solution for the [task-tracker](https://roadmap.sh/projects/task-tracker)
 ```bash
     git clone https://github.com/Aksellercan/TaskTrackerCLI.git
     cd TaskTrackerCLI
-    gcc main.c String/String.c cJSON/cJSON.c FileUtility.c Tasks.c -o ./TaskTrackerCLI.exe
+    gcc main.c String/String.c cJSON/cJSON.c FileUtility.c Tasks.c -o ./TaskTrackerCLI
+    ./TaskTrackerCLI help
 ```
 
 
