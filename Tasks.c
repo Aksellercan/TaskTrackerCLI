@@ -10,9 +10,9 @@ int arrayLength;
 
 void _task_print_tasks(Task* task) {
     if (isNullOrWhiteSpace(task->updatedAt)) {
-        printf("\n%d: %s\nStatus: %s, Created At: %s\n", task->id, task->description,task->status ,task->createdAt);
+        printf("%d: %s\nStatus: %s, Created At: %s\n", task->id, task->description,task->status ,task->createdAt);
     } else {
-        printf("\n%d: %s\nStatus: %s, Updated At: %s\n", task->id, task->description,task->status, task->updatedAt);
+        printf("%d: %s\nStatus: %s, Updated At: %s\n", task->id, task->description,task->status, task->updatedAt);
     }
 }
 
@@ -115,7 +115,7 @@ void task_list_tasks() {
         printf("No tasks found\n");
         return;
     }
-    printf("Task List:\n");
+    printf(":: Task List:\n");
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
         _task_print_tasks(task);
@@ -127,7 +127,7 @@ void task_sort_task_by_completed() {
         printf("No tasks found\n");
         return;
     }
-    printf("Completed Tasks:\n");
+    printf(":: Completed Tasks:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
@@ -146,7 +146,7 @@ void task_sort_task_by_in_progress() {
         printf("No tasks found\n");
         return;
     }
-    printf("In Progress:\n");
+    printf(":: In Progress:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
@@ -165,7 +165,7 @@ void task_sort_task_by_todo() {
         printf("No tasks found\n");
         return;
     }
-    printf("To Do List:\n");
+    printf(":: To Do List:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
