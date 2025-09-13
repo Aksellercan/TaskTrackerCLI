@@ -7,9 +7,8 @@
 
 Task *taskList;
 int arrayLength;
-int reallocateCounter;
 
-void print_tasks(Task* task) {
+void _task_print_tasks(Task* task) {
     if (isNullOrWhiteSpace(task->updatedAt)) {
         printf("\n%d: %s\nStatus: %s, Created At: %s\n", task->id, task->description,task->status ,task->createdAt);
     } else {
@@ -17,7 +16,7 @@ void print_tasks(Task* task) {
     }
 }
 
-void allocate_memory() {
+void _task_allocate_memory() {
     if (taskList != NULL) {
         Task *ptr = realloc(taskList, sizeof(Task) * (arrayLength + 1));
         if (ptr == NULL) {
@@ -25,7 +24,6 @@ void allocate_memory() {
             exit(3);
         }
         taskList = ptr;
-        reallocateCounter++;
         return;
     }
     taskList = (Task *) malloc(sizeof(Task));
@@ -35,9 +33,9 @@ void allocate_memory() {
     }
 }
 
-void add_task(const Task *task, const bool saveToFile) {
+void task_add_task(const Task *task, const bool saveToFile) {
     if (task == NULL) return;
-    allocate_memory();
+    _task_allocate_memory();
     taskList[arrayLength] = *task;
     arrayLength++;
     if (saveToFile) {
@@ -45,14 +43,14 @@ void add_task(const Task *task, const bool saveToFile) {
     }
 }
 
-void remove_task(const int task_id) {
+void task_remove_task(const int task_id) {
     _Bool success = false;
     for (int i = 0; i < arrayLength; i++) {
         const Task *task = &taskList[i];
         if (task->id == task_id) {
             taskList[i] = taskList[arrayLength - 1];
             arrayLength--;
-            allocate_memory();
+            _task_allocate_memory();
             success = true;
         }
     }
@@ -64,7 +62,7 @@ void remove_task(const int task_id) {
     }
 }
 
-void mark_task_status(const int taskid, const char *status) {
+void task_mark_task_status(const int taskid, const char *status) {
     bool success = false;
     for (int i = 0; i < arrayLength; i++) {
         Task *taskFound = &taskList[i];
@@ -85,7 +83,7 @@ void mark_task_status(const int taskid, const char *status) {
     }
 }
 
-void update_task(const int taskid, const char *description) {
+void task_update_task(const int taskid, const char *description) {
     const int descLength = stringLength(description);
     if (descLength > 60) {
         printf("Description is too long! Counted %d chars, should be less than 60 characters.\n", descLength);
@@ -112,7 +110,7 @@ void update_task(const int taskid, const char *description) {
     }
 }
 
-void list_tasks() {
+void task_list_tasks() {
     if (taskList == NULL) {
         printf("No tasks found\n");
         return;
@@ -120,11 +118,11 @@ void list_tasks() {
     printf("Task List:\n");
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
-        print_tasks(task);
+        _task_print_tasks(task);
     }
 }
 
-void sort_task_by_completed() {
+void task_sort_task_by_completed() {
     if (taskList == NULL) {
         printf("No tasks found\n");
         return;
@@ -134,7 +132,7 @@ void sort_task_by_completed() {
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
         if (compareStrings(task->status, "done")) {
-            print_tasks(task);
+            _task_print_tasks(task);
             listLength++;
         }
     }
@@ -143,7 +141,7 @@ void sort_task_by_completed() {
     }
 }
 
-void sort_task_by_in_progress() {
+void task_sort_task_by_in_progress() {
     if (taskList == NULL) {
         printf("No tasks found\n");
         return;
@@ -153,7 +151,7 @@ void sort_task_by_in_progress() {
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
         if (compareStrings(task->status, "in-progress")) {
-            print_tasks(task);
+            _task_print_tasks(task);
             listLength++;
         }
     }
@@ -162,7 +160,7 @@ void sort_task_by_in_progress() {
     }
 }
 
-void sort_task_by_todo() {
+void task_sort_task_by_todo() {
     if (taskList == NULL) {
         printf("No tasks found\n");
         return;
@@ -172,7 +170,7 @@ void sort_task_by_todo() {
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
         if (compareStrings(task->status, "todo")) {
-            print_tasks(task);
+            _task_print_tasks(task);
             listLength++;
         }
     }
@@ -181,7 +179,7 @@ void sort_task_by_todo() {
     }
 }
 
-void free_tasks() {
+void task_free_tasks() {
     if (taskList == NULL) return;
     free(taskList);
 }

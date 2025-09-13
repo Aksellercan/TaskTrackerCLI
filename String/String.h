@@ -13,5 +13,6 @@ char* RemoveTrailingNewLine(char *stringToRemove);
 _Bool Contains(const char *str, const char *stringToFind);
 char* ToLowerCase(const char *str);
 char* ToUpperCase(const char *str);
+char* StringAppend(const char* mainString, const char* appendString);
 
 #endif //STRING_H

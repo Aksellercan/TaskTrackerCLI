@@ -1,2 +1,6 @@
 .idea/
 .idea/*
+.vscode/
+.vscode/*
+data.json
+TaskTrackerCLI.exe

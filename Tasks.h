@@ -10,14 +10,14 @@ typedef struct {
     char updatedAt[30];
 } Task;
 
-void add_task(const Task *task, bool saveToFile);
-void remove_task(int task_id);
-void update_task(int taskid, const char *description);
-void sort_task_by_completed();
-void sort_task_by_in_progress();
-void sort_task_by_todo();
-void mark_task_status(int taskid, const char *status);
-void list_tasks();
-void free_tasks();
+void task_add_task(const Task *task, bool saveToFile);
+void task_remove_task(int task_id);
+void task_update_task(int taskid, const char *description);
+void task_sort_task_by_completed();
+void task_sort_task_by_in_progress();
+void task_sort_task_by_todo();
+void task_mark_task_status(int taskid, const char *status);
+void task_list_tasks();
+void task_free_tasks();
 
 #endif //TASKS_H

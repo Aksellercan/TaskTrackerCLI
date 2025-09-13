@@ -6,7 +6,7 @@
 #include "Tasks.h"
 #include "String/String.h"
 
-void addOption(const char *description) {
+void _main_add_Option(const char *description) {
     Task task = {lastIdentifier+1};
     time_t currentTime;
     time(&currentTime);
@@ -19,11 +19,11 @@ void addOption(const char *description) {
     StringCopy(description, task.description);
     const char *status = "todo";
     StringCopy(status, task.status);
-    add_task(&task,true);
+    task_add_task(&task,true);
     printf("Task added successfully (ID %d)",task.id);
 }
 
-void help() {
+void _main_help() {
     printf("Usage: [OPTION] <description/id>\n");
     printf("\nOptions:\n");
     printf("add <description>\n");
@@ -41,63 +41,64 @@ void help() {
 
 int main(int argc, char *argv[]) {
     if (argc > 1) {
+        prepare_directory();
         load_from_file();
         if (argc == 3) {
             if (compareStrings(argv[1], "add")) {
-                addOption(argv[2]);
+                _main_add_Option(argv[2]);
             }
             if (compareStrings(argv[1], "delete")) {
                 const int intValue =atoi(argv[2]);
-                remove_task(intValue);
+                task_remove_task(intValue);
             }
             if (compareStrings(argv[1], "list")) {
                 if (compareStrings(argv[2], "todo")) {
-                    sort_task_by_todo();
+                    task_sort_task_by_todo();
                 }
                 if (compareStrings(argv[2], "in-progress")) {
-                    sort_task_by_in_progress();
+                    task_sort_task_by_in_progress();
                 }
                 if (compareStrings(argv[2], "done")) {
-                    sort_task_by_completed();
+                    task_sort_task_by_completed();
                 }
             }
             if (compareStrings(argv[1], "mark-in-progress")) {
                 const int intValue =atoi(argv[2]);
-                mark_task_status(intValue, "in-progress");
+                task_mark_task_status(intValue, "in-progress");
             }
             if (compareStrings(argv[1], "mark-done")) {
                 const int intValue =atoi(argv[2]);
-                mark_task_status(intValue, "done");
+                task_mark_task_status(intValue, "done");
             }
         }
 
         if (argc == 4) {
             if (compareStrings(argv[1], "update")) {
                 int intValue =atoi(argv[2]);
-                update_task(intValue, argv[3]);
+                task_update_task(intValue, argv[3]);
             }
         }
 
         if (argc == 2) {
             if (compareStrings(argv[1], "list")) {
-                list_tasks();
+                task_list_tasks();
             }
 
             if (compareStrings(argv[1], "sort-completed")) {
-                sort_task_by_completed();
+                task_sort_task_by_completed();
             }
 
             if (compareStrings(argv[1], "sort-incomplete")) {
-                sort_task_by_in_progress();
+                task_sort_task_by_in_progress();
             }
 
             if (compareStrings(argv[1], "help")) {
-                help();
+                _main_help();
             }
         }
-        free_tasks();
+        task_free_tasks();
     } else {
-        help();
+        _main_help();
     }
     return 0;
 }

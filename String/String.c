@@ -204,3 +204,21 @@ char* ToUpperCase(const char * str) {
     StringCopy(returnString, newString);
     return newString;
 }
+
+char* StringAppend(const char* mainString, const char* appendString) {
+    const int mainStringLength = stringLength(mainString);
+    const int appendStringLength = stringLength(appendString);
+    if (appendStringLength == 0) { return (char*) mainString; }
+    if (mainStringLength == 0) { return (char*) appendString; }
+    int fullLength = mainStringLength+appendStringLength;
+    char* fullString = (char*)malloc(fullLength + 1);
+    for (int i = 0; i < fullLength; i++) {
+        if (i >= mainStringLength) {
+            fullString[i] = appendString[i-mainStringLength];
+            continue;
+        }
+        fullString[i] = mainString[i];
+    }
+    fullString[fullLength] = '\0';
+    return fullString;
+}

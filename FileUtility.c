@@ -1,3 +1,11 @@
+#ifdef _WIN32
+#include <direct.h>
+#define OS_SEP "\\"
+#else
+#include <sys/stat.h>
+#define OS_SEP "/"
+#endif
+
 #include "FileUtility.h"
 #include "cJSON/cJSON.h"
 #include "Tasks.h"
@@ -9,11 +17,27 @@
 int taskCounter = 0;
 int lastIdentifier = 0;
 
-void parse_from_JSON(const char *json_string) {
+
+char* _get_folder_path() {
+    char *home_directory = StringAppend(getenv("HOME"), StringAppend(OS_SEP, ".config")); 
+    return StringAppend(home_directory, StringAppend(OS_SEP, "TaskTrackerCLI"));
+}
+
+char* _get_file_path() {
+    return StringAppend(_get_folder_path(), StringAppend(OS_SEP, "tasks.json"));
+}
+
+void prepare_directory() {
+    struct stat st = {0};
+    if (stat(_get_folder_path(), &st) == -1) {
+        mkdir(_get_folder_path(), 0700);
+    }
+}
+
+void _parse_from_JSON(const char *json_string) {
     const cJSON *parseJSON = cJSON_Parse(json_string);
     if (parseJSON == NULL) {
         printf("Failed to parse JSON\n");
-        // exit(1);
     }
     //get array length
     const cJSON *get_JSON_ArrayLength = cJSON_GetArrayItem(parseJSON, 0);
@@ -38,7 +62,7 @@ void parse_from_JSON(const char *json_string) {
         StringCopy(taskUpdatedAt, parsedTask.updatedAt);
         StringCopy(taskDescription, parsedTask.description);
         StringCopy(taskStatus, parsedTask.status);
-        add_task(&parsedTask, false);
+        task_add_task(&parsedTask, false);
         if (lastIdentifier < taskId) {
             lastIdentifier = taskId;
         }
@@ -62,9 +86,10 @@ void save_to_file(const Task *tasklist, int arrayLength) {
     }
 
     const char *json_str = cJSON_Print(json);
-    FILE *fptr = fopen("data.json", "w");
+    FILE *fptr = fopen(_get_file_path(), "w");
     if (fptr == NULL) {
-        printf("File could not be opened\n");
+        printf("Failed to save, file could not be opened\n");
+        return;
     }
     cJSON_free(json);
     fprintf(fptr, json_str);
@@ -72,7 +97,7 @@ void save_to_file(const Task *tasklist, int arrayLength) {
 }
 
 void load_from_file() {
-    FILE *fptr = fopen("data.json", "r");
+    FILE *fptr = fopen(_get_file_path(), "r");
     if (fptr == NULL) {
         return;
     }
@@ -89,6 +114,6 @@ void load_from_file() {
     fread(str, sizeof(char), filesize, fptr);
 
     fclose(fptr);
-    parse_from_JSON(str);
+    _parse_from_JSON(str);
     free(str);
 }
