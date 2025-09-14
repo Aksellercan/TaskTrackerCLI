@@ -36,6 +36,7 @@ void _main_help() {
     printf("sort-completed -> Sort by completed\n");
     printf("sort-incomplete -> Sort by incomplete or in-progress\n");
     printf("list -> List all tasks\n");
+    printf("size -> Get number of tasks\n");
     printf("help -> print this menu\n");
 }
 
@@ -82,6 +83,10 @@ int main(int argc, char *argv[]) {
         if (argc == 2) {
             if (compareStrings(argv[1], "list")) {
                 task_list_tasks();
+            }
+
+            if (compareStrings(argv[1], "size")) {
+                printf("%d\n", lastIdentifier);
             }
 
             if (compareStrings(argv[1], "sort-completed")) {
