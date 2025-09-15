@@ -29,6 +29,7 @@ void _main_help() {
     printf("add <description>\n");
     printf("delete <id>\n");
     printf("update <id> <description>\n");
+    printf("mark-todo <id>\n");
     printf("mark-in-progress <id>\n");
     printf("mark-done <id>\n");
     printf("list <todo, in-progress, done>\n");
@@ -62,6 +63,10 @@ int main(int argc, char *argv[]) {
                 if (compareStrings(argv[2], "done")) {
                     task_sort_task_by_completed();
                 }
+            }
+            if (compareStrings(argv[1], "mark-todo")) {
+                const int intValue =atoi(argv[2]);
+                task_mark_task_status(intValue, "todo");
             }
             if (compareStrings(argv[1], "mark-in-progress")) {
                 const int intValue =atoi(argv[2]);

@@ -128,6 +128,7 @@ void StringCopy(const char *stringToCopy, char *destination) {
     for (int i = 0; i < strlen; i++) {
         destination[i] = stringToCopy[i];
     }
+    destination[strlen] = '\0';
 }
 
 char* RemoveTrailingNewLine(char *stringToRemove) {
