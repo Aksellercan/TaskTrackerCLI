@@ -43,6 +43,18 @@ void task_add_task(const Task *task, const bool saveToFile) {
     }
 }
 
+void _bubble_sort() {
+	for (int i = 0; i < arrayLength; i++) {
+		for (int j = i+1; j < arrayLength; j++) {
+			if (taskList[i].id > taskList[j].id) {
+				Task temp = taskList[i];
+				taskList[i] = taskList[j];
+				taskList[j] = temp;
+			}	
+		}
+	}
+} 
+
 void task_remove_task(const int task_id) {
     _Bool success = false;
     for (int i = 0; i < arrayLength; i++) {
@@ -56,6 +68,7 @@ void task_remove_task(const int task_id) {
     }
     if (success) {
         printf("Task with id %d removed\n", task_id);
+		_bubble_sort();
         save_to_file(taskList, arrayLength);
     } else {
         printf("Task with id %d not found\n", task_id);

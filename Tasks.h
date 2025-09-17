@@ -2,6 +2,8 @@
 #define TASKS_H
 #include <stdbool.h>
 
+extern int arrayLength;
+
 typedef struct {
     int id;
     char description[61]; //+1 for the \0

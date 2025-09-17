@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
             }
 
             if (compareStrings(argv[1], "size")) {
-                printf("%d\n", lastIdentifier);
+                printf("%d\n", arrayLength);
             }
 
             if (compareStrings(argv[1], "sort-completed")) {

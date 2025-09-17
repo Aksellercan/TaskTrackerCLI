@@ -164,8 +164,8 @@ _Bool Contains(const char *pattern, const char *stringToFind) {
 
 char* ToLowerCase(const char * str) {
     const int strLen = stringLength(str);
-    char returnString[strLen];
     if (strLen == 0) { return NULL; }
+    char returnString[strLen];
     for (int i = 0; i < strLen; i++) {
         char c = str[i];
         if (c == '\0') {
@@ -186,8 +186,8 @@ char* ToLowerCase(const char * str) {
 
 char* ToUpperCase(const char * str) {
     const int strLen = stringLength(str);
-    char returnString[strLen];
     if (strLen == 0) { return NULL; }
+    char returnString[strLen];
     for (int i = 0; i < strLen; i++) {
         char c = str[i];
         if (c == '\0') {
