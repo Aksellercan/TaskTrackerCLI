@@ -15,6 +15,15 @@ int stringLength(const char *str) {
     return counter(str, 0);
 }
 
+int Length(const char *str) {
+	int index = 0;
+
+	while (str[index] != '\0') {
+		index++;
+	}
+	return index;
+} 
+
 _Bool compareStrings(const char *str1, const char *str2) {
     const int len1 = stringLength(str1);
     if (len1 != stringLength(str2)) {

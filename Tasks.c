@@ -160,7 +160,7 @@ void task_sort_task_by_in_progress() {
         printf("No tasks found\n");
         return;
     }
-    printf(":: In Progress:\n");
+	printf(":: In Progress:\n");
     int listLength = 0;
     for (int i = 0; i < arrayLength; i++) {
         Task *task = &taskList[i];
