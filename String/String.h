@@ -14,6 +14,6 @@ _Bool Contains(const char *str, const char *stringToFind);
 char* ToLowerCase(const char *str);
 char* ToUpperCase(const char *str);
 char* StringAppend(const char* mainString, const char* appendString);
-int Length(const char *str);
+int getStringLength(const char *str);
 
 #endif //STRING_H

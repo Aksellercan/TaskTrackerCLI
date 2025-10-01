@@ -57,7 +57,7 @@ void _parse_from_JSON(const char *json_string) {
         const int taskId = (int) cJSON_GetNumberValue(objectId);
         const char *taskCreatedAt = cJSON_GetStringValue(objectCreatedAt);
         const char *taskUpdatedAt = cJSON_GetStringValue(objectUpdatedAt);
-        const Task parsedTask = {taskId};
+        Task parsedTask = {taskId};
         StringCopy(taskCreatedAt, parsedTask.createdAt);
         StringCopy(taskUpdatedAt, parsedTask.updatedAt);
         StringCopy(taskDescription, parsedTask.description);
@@ -91,9 +91,8 @@ void save_to_file(const Task *tasklist, int arrayLength) {
         printf("Failed to save, file could not be opened\n");
         return;
     }
-	json_str[Length(json_str)] = '\n';
     cJSON_free(json);
-    fprintf(fptr, json_str);
+    fprintf(fptr, "%s\n", json_str);
     fclose(fptr);
 }
 

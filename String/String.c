@@ -15,7 +15,7 @@ int stringLength(const char *str) {
     return counter(str, 0);
 }
 
-int Length(const char *str) {
+int getStringLength(const char *str) {
 	int index = 0;
 
 	while (str[index] != '\0') {
