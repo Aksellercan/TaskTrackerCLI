@@ -85,12 +85,13 @@ void save_to_file(const Task *tasklist, int arrayLength) {
         cJSON_AddStringToObject(arrayElements, "updatedAt", task->updatedAt);
     }
 
-    const char *json_str = cJSON_Print(json);
+    char *json_str = cJSON_Print(json);
     FILE *fptr = fopen(_get_file_path(), "w");
     if (fptr == NULL) {
         printf("Failed to save, file could not be opened\n");
         return;
     }
+	json_str[Length(json_str)] = '\n';
     cJSON_free(json);
     fprintf(fptr, json_str);
     fclose(fptr);

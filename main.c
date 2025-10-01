@@ -20,7 +20,7 @@ void _main_add_Option(const char *description) {
     const char *status = "todo";
     StringCopy(status, task.status);
     task_add_task(&task,true);
-    printf("Task added successfully (ID %d)",task.id);
+    printf("Task added successfully (ID %d)\n",task.id);
 }
 
 void _main_help() {
