@@ -4,7 +4,8 @@
 
 extern int arrayLength;
 
-typedef struct {
+typedef struct
+{
     int id;
     char description[61]; //+1 for the \0
     char status[13];
@@ -22,4 +23,4 @@ void task_mark_task_status(int taskid, const char *status);
 void task_list_tasks();
 void task_free_tasks();
 
-#endif //TASKS_H
+#endif // TASKS_H

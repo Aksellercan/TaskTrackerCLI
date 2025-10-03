@@ -17,34 +17,40 @@
 int taskCounter = 0;
 int lastIdentifier = 0;
 
-
-char* _get_folder_path() {
-    char *home_directory = StringAppend(getenv("HOME"), StringAppend(OS_SEP, ".config")); 
+char *_get_folder_path()
+{
+    char *home_directory = StringAppend(getenv("HOME"), StringAppend(OS_SEP, ".config"));
     return StringAppend(home_directory, StringAppend(OS_SEP, "TaskTrackerCLI"));
 }
 
-char* _get_file_path() {
+char *_get_file_path()
+{
     return StringAppend(_get_folder_path(), StringAppend(OS_SEP, "tasks.json"));
 }
 
-void prepare_directory() {
+void prepare_directory()
+{
     struct stat st = {0};
-    if (stat(_get_folder_path(), &st) == -1) {
+    if (stat(_get_folder_path(), &st) == -1)
+    {
         mkdir(_get_folder_path(), 0700);
     }
 }
 
-void _parse_from_JSON(const char *json_string) {
+void _parse_from_JSON(const char *json_string)
+{
     const cJSON *parseJSON = cJSON_Parse(json_string);
-    if (parseJSON == NULL) {
+    if (parseJSON == NULL)
+    {
         printf("Failed to parse JSON\n");
     }
-    //get array length
+    // get array length
     const cJSON *get_JSON_ArrayLength = cJSON_GetArrayItem(parseJSON, 0);
     const double parsedArrayLength = cJSON_GetNumberValue(get_JSON_ArrayLength);
 
     const cJSON *get_JSON_Array = cJSON_GetArrayItem(parseJSON, 1);
-    for (int i = 0; i < parsedArrayLength; i++) {
+    for (int i = 0; i < parsedArrayLength; i++)
+    {
         const cJSON *get_Array_Elements = cJSON_GetArrayItem(get_JSON_Array, i);
         const cJSON *objectId = cJSON_GetObjectItem(get_Array_Elements, "id");
         const cJSON *objectDescription = cJSON_GetObjectItem(get_Array_Elements, "description");
@@ -54,7 +60,7 @@ void _parse_from_JSON(const char *json_string) {
 
         const char *taskDescription = cJSON_GetStringValue(objectDescription);
         const char *taskStatus = cJSON_GetStringValue(objectStatus);
-        const int taskId = (int) cJSON_GetNumberValue(objectId);
+        const int taskId = (int)cJSON_GetNumberValue(objectId);
         const char *taskCreatedAt = cJSON_GetStringValue(objectCreatedAt);
         const char *taskUpdatedAt = cJSON_GetStringValue(objectUpdatedAt);
         Task parsedTask = {taskId};
@@ -63,19 +69,22 @@ void _parse_from_JSON(const char *json_string) {
         StringCopy(taskDescription, parsedTask.description);
         StringCopy(taskStatus, parsedTask.status);
         task_add_task(&parsedTask, false);
-        if (lastIdentifier < taskId) {
+        if (lastIdentifier < taskId)
+        {
             lastIdentifier = taskId;
         }
         taskCounter++;
     }
 }
 
-void save_to_file(const Task *tasklist, int arrayLength) {
+void save_to_file(const Task *tasklist, int arrayLength)
+{
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "arrayLength", arrayLength);
     cJSON *innerArray = cJSON_AddArrayToObject(json, "tasks");
 
-    for (int i = 0; i < arrayLength; i++) {
+    for (int i = 0; i < arrayLength; i++)
+    {
         const Task *task = &tasklist[i];
         cJSON *arrayElements = cJSON_AddObjectToObject(innerArray, "taskList");
         cJSON_AddNumberToObject(arrayElements, "id", task->id);
@@ -85,9 +94,12 @@ void save_to_file(const Task *tasklist, int arrayLength) {
         cJSON_AddStringToObject(arrayElements, "updatedAt", task->updatedAt);
     }
 
+    FILE *stream;
+
     char *json_str = cJSON_Print(json);
     FILE *fptr = fopen(_get_file_path(), "w");
-    if (fptr == NULL) {
+    if (fptr == NULL)
+    {
         printf("Failed to save, file could not be opened\n");
         return;
     }
@@ -96,9 +108,11 @@ void save_to_file(const Task *tasklist, int arrayLength) {
     fclose(fptr);
 }
 
-void load_from_file() {
+void load_from_file()
+{
     FILE *fptr = fopen(_get_file_path(), "r");
-    if (fptr == NULL) {
+    if (fptr == NULL)
+    {
         return;
     }
     fseek(fptr, 0, SEEK_END);
@@ -106,7 +120,8 @@ void load_from_file() {
     fseek(fptr, 0, SEEK_SET);
 
     char *str = malloc(filesize * sizeof(char));
-    if (str == NULL) {
+    if (str == NULL)
+    {
         printf("Memory could not be allocated\n");
         return;
     }

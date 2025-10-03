@@ -8,4 +8,4 @@ void save_to_file(const Task *tasklist, int arrayLength);
 void load_from_file();
 void prepare_directory();
 
-#endif //FILEUTILITY_H
+#endif // FILEUTILITY_H
