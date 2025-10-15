@@ -107,7 +107,8 @@ void task_mark_task_status(const int taskid, const char *status)
         {
             time_t currentTime;
             time(&currentTime);
-            StringCopy(RemoveTrailingNewLine(ctime(&currentTime)), taskFound->updatedAt);
+            if (compareStrings(status, "done") == 1)
+                StringCopy(RemoveTrailingNewLine(ctime(&currentTime)), taskFound->updatedAt);
             StringCopy(status, taskFound->status);
             taskList[i] = *taskFound;
             success = true;

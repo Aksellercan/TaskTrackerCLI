@@ -29,7 +29,7 @@ size_t getStringLength(const char *str)
     return n;
 }
 
-_Bool compareStrings(const char *str1, const char *str2)
+unsigned int compareStrings(const char *str1, const char *str2)
 {
     const int len1 = stringLength(str1);
     if (len1 != stringLength(str2))
@@ -46,7 +46,7 @@ _Bool compareStrings(const char *str1, const char *str2)
     return 1;
 }
 
-_Bool includesSpace(const char *str)
+unsigned int includesSpace(const char *str)
 {
     const int strLen = stringLength(str);
     if (str[0] == ' ' || str[strLen - 1] == ' ')
@@ -112,7 +112,7 @@ char *trim(const char *str)
     return newString;
 }
 
-_Bool isNullOrWhiteSpace(const char *str)
+unsigned int isNullOrWhiteSpace(const char *str)
 {
     if (str == NULL)
     {
@@ -141,7 +141,7 @@ _Bool isNullOrWhiteSpace(const char *str)
     return isSpace;
 }
 
-_Bool ContainsChar(const char *str, const char *containsChar)
+unsigned int ContainsChar(const char *str, const char *containsChar)
 {
     const int strLen = stringLength(str);
     if (strLen == 0)
@@ -211,7 +211,7 @@ char *RemoveTrailingNewLine(char *stringToRemove)
     return stringToRemove;
 }
 
-_Bool Contains(const char *pattern, const char *stringToFind)
+unsigned int Contains(const char *pattern, const char *stringToFind)
 {
     const int patternLen = stringLength(pattern);
     int correctLetterCount = 0;
