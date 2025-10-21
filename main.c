@@ -6,13 +6,15 @@
 #include "Tasks.h"
 #include "String/String.h"
 
+char* version = "v3.2";
+
 void _main_add_Option(const char *description)
 {
     Task task = {lastIdentifier + 1};
     time_t currentTime;
     time(&currentTime);
     StringCopy(RemoveTrailingNewLine(ctime(&currentTime)), task.createdAt);
-    const int descLength = stringLength(description);
+    const unsigned int descLength = stringLength(description);
     if (descLength > 60)
     {
         printf("Description is too long! Counted %d chars, should be less than 60 characters.\n", descLength);
@@ -22,7 +24,7 @@ void _main_add_Option(const char *description)
     const char *status = "todo";
     StringCopy(status, task.status);
     task_add_task(&task, true);
-    printf("Task added successfully (ID %d)\n", task.id);
+    printf("Task added successfully (ID %lu)\n", task.id);
 }
 
 void _main_help()
@@ -41,6 +43,7 @@ void _main_help()
     printf("sort-incomplete -> Sort by incomplete or in-progress\n");
     printf("list -> List all tasks\n");
     printf("size -> Get number of tasks\n");
+    printf("version -> print version\n");
     printf("help -> print this menu\n");
 }
 
@@ -127,6 +130,9 @@ int main(int argc, char *argv[])
             if (compareStrings(argv[1], "help"))
             {
                 _main_help();
+            }
+            if (compareStrings(argv[1], "version")) {
+                printf("%s\n", version);
             }
         }
         task_free_tasks();

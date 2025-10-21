@@ -12,11 +12,11 @@ void _task_print_tasks(Task *task)
 {
     if (isNullOrWhiteSpace(task->updatedAt))
     {
-        printf("%d: %s\nStatus: %s, Created At: %s\n", task->id, task->description, task->status, task->createdAt);
+        printf("%lu: %s\nStatus: %s, Created At: %s\n", task->id, task->description, task->status, task->createdAt);
     }
     else
     {
-        printf("%d: %s\nStatus: %s, Updated At: %s\n", task->id, task->description, task->status, task->updatedAt);
+        printf("%lu: %s\nStatus: %s, Updated At: %s\n", task->id, task->description, task->status, task->updatedAt);
     }
 }
 
@@ -71,7 +71,7 @@ Task *_bubble_sort(Task *array)
     return taskList;
 }
 
-void task_remove_task(const int task_id)
+void task_remove_task(const unsigned long task_id)
 {
     _Bool success = false;
     for (int i = 0; i < arrayLength; i++)
@@ -87,17 +87,17 @@ void task_remove_task(const int task_id)
     }
     if (success)
     {
-        printf("Task with id %d removed\n", task_id);
+        printf("Task with id %lu removed\n", task_id);
         taskList = _bubble_sort(taskList);
         save_to_file(taskList, arrayLength);
     }
     else
     {
-        printf("Task with id %d not found\n", task_id);
+        printf("Task with id %lu not found\n", task_id);
     }
 }
 
-void task_mark_task_status(const int taskid, const char *status)
+void task_mark_task_status(const unsigned long taskid, const char *status)
 {
     bool success = false;
     for (int i = 0; i < arrayLength; i++)
@@ -116,16 +116,16 @@ void task_mark_task_status(const int taskid, const char *status)
     }
     if (success)
     {
-        printf("Task with id %d status updated\n", taskid);
+        printf("Task with id %lu status updated\n", taskid);
         save_to_file(taskList, arrayLength);
     }
     else
     {
-        printf("Task with id %d not found\n", taskid);
+        printf("Task with id %lu not found\n", taskid);
     }
 }
 
-void task_update_task(const int taskid, const char *description)
+void task_update_task(const unsigned long taskid, const char *description)
 {
     const int descLength = stringLength(description);
     if (descLength > 60)
@@ -150,12 +150,12 @@ void task_update_task(const int taskid, const char *description)
     }
     if (success)
     {
-        printf("Task with id %d updated\n", taskid);
+        printf("Task with id %lu updated\n", taskid);
         save_to_file(taskList, arrayLength);
     }
     else
     {
-        printf("Task with id %d not found\n", taskid);
+        printf("Task with id %lu not found\n", taskid);
     }
 }
 

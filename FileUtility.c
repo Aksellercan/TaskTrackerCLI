@@ -123,6 +123,7 @@ void load_from_file()
     if (str == NULL)
     {
         printf("Memory could not be allocated\n");
+        fclose(fptr);
         return;
     }
 
